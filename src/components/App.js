@@ -24,6 +24,7 @@ class App extends Component {
 
     // Load Token
     const networkId =  await web3.eth.net.getId()
+    alert("networkId: "+networkId);
     const tokenData = Token.networks[networkId]
     if(tokenData) {
       const token = new web3.eth.Contract(Token.abi, tokenData.address)
@@ -60,6 +61,9 @@ class App extends Component {
   }
 
   buyTokens = (etherAmount) => {
+
+    alert(JSON.stringify(this.state.account));
+
     this.setState({ loading: true })
     this.state.ethSwap.methods.buyTokens().send({ value: etherAmount, from: this.state.account }).on('transactionHash', (hash) => {
       this.setState({ loading: false })
